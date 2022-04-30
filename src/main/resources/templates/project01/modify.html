@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>수정 테스트</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="../view/viewassets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../view/viewcss/viewstyles.css" rel="stylesheet" />
+    </head>
+    <body >
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#!">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page content-->
+        
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <form id='f1'>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <article>
+                    
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <div>
+                            
+                            <h1><input class="fw-bolder mb-1" name = "title" th:value="${vo.title}"/></h1>
+                            <p class="help-block">Title text here</p>
+                            </div>
+                            <!-- Post meta content-->
+                            
+                            <!-- Post categories-->
+                            <input class="text-muted fst-italic mb-2" name = "category" th:value="${vo.category}" />
+                        </header>
+                        <!-- Preview image figure-->
+                        <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                           <textarea class="fs-5 mb-4" name = "content" th:text="${vo.content}" ></textarea>
+                        </section>
+                        
+                    </article>
+                    <div class="pull-right">
+                    <a href="#" class="btn btn-primary modbtn">modify</a>
+                    <a href="#" class="btn btn-primary delbtn">delete</a>
+                    
+                    <a th:href="@{ home(page=${pagevo.page},
+                    			size=${pagevo.size},
+                    			type=${pagevo.type},
+                    			keyword=${pagevo.keyword},
+                    			bno=${vo.bno}
+                    )}" class="btn btn-primary">cancel/go home</a>
+                    
+                    </div>
+                    
+                    <section class="mb-5" style="display:none">
+                        <div class="card bg-light" >
+                            <div class="card-body">
+
+							<!-- reply list -->                               
+                            <div  id="replylist"></div>
+   
+                            </div>
+                        </div>
+                    </section>
+                    
+             <input type='hidden' name='page' th:value="${pagevo.page}">
+        	<input type='hidden' name='size' th:value="${pagevo.size}">
+        	<input type='hidden' name='type' th:value="${pagevo.type}">
+        	<input type='hidden' name='keyword' th:value="${pagevo.keyword}">
+        	<input type="hidden" name="bno" th:value="${vo.bno}">
+        	<input type="hidden" name = 'rno' th:value="${reply?.rno}">
+                    
+                    </form>
+                    
+                    
+                    <!-- Comments section-->
+                    
+                   
+                    
+                    
+                </div>
+                <!-- Side widgets-->
+
+
+        
+            </div>
+        </div>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="../view/viewjs/reply.js" ></script>
+        
+        <th:block layout:fragment="script">
+        <script th:inline="javascript">
+        
+        $(document).ready(function() {
+       	 (function(){
+    		 replyManager.getAll([[${vo.bno}]],replylist);
+    	 })();
+    	 
+    	 function replylist(list){
+    		 
+    		 var htmls = "";
+    		 var replyObj;
+			
+    		 for(var i=0; i<list.length;i++) {
+    			 
+    			 replyObj=list[i];
+    			 
+    			 this.rno = rno;
+    			 rno = replyObj.rno;
+    			 
+    			 htmls+='<div class="d-flex" id="rid' + replyObj.rno + '">'
+    			 +'<div class="flex-shrink-0">'+'<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />'+'</div>'
+    			 +"<div class='ms-3'>"
+    			 +'<div>'
+    			 +"<div class='fw-bold'>"+replyObj.replyer+"</div>"
+    			 +'<a href="javascript:void(0)" class="moddbtn" style="margin-right:5px">수정</a>'
+    			 +'<a href="javascript:void(0)" class="delbtn" style="margin-right:5px">삭제</a>'
+    			 +'</div>'
+    			 +"<div>"+replyObj.replyText+"</div>"
+    			 +"</div>"
+    			 +'</div>'
+    			 
+    			 
+
+
+    		 }	//each end
+    			$("#replylist").html(htmls);
+
+
+	}
+        	
+        	var formObj = $("#f1");
+        	
+        	$(".delbtn").click(function() {
+        		formObj.attr("action","delete");
+        		formObj.attr("method", "post");
+        		
+        		formObj.submit();
+        	});
+        	
+        	$(".modbtn").click(function() {
+        		formObj.attr("action","modify");
+        		formObj.attr("method", "post");
+        		
+        		formObj.submit();
+        	});
+        	
+        });
+
+        
+        </script>
+        </th:block>
+    </body>
+</html>

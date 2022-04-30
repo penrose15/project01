@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Blog Post - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="../view/viewassets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../view/viewcss/viewstyles.css" rel="stylesheet" />
+    </head>
+    <body >
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="../project01/home">홍성주의 Blog</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="../project01/home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../login" id="loginBtn">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page content-->
+        <div class="container mt-5">
+        <form th:action="${'/login'}"></form>
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1><input class="fw-bolder mb-1" name = "title" th:value="${vo.title}" readonly="readonly"/></h1>
+                            <!-- Post meta content-->
+                            
+                            <!-- Post categories-->
+                            <input class="text-muted fst-italic mb-2" name = "category" th:value="${vo.category}" readonly="readonly"/>
+                        </header>
+                        
+                        <!-- Post content-->
+                        <section class="mb-5">
+                           <textarea class="fs-5 mb-4"  name = "content" th:text="${vo.content}" readonly="readonly" ></textarea>
+                        </section>
+                        <a class="btn btn-outline-secondary" th:href = "@{view(bno=${vo.bno}-1)}" tabindex="-1" style="margin-bottom: 1rem;">Newer</a>    
+                        <a class="btn btn-outline-secondary" th:href = "@{view(bno=${vo.bno}+1)}" tabindex="-1" style="margin-bottom: 1rem;">Older</a> 
+                        <div class = "pull-right" th:with="uid =${#authentication.principal} eq 'anonymousUser' ? 'Guest':${#authentication.principal.member.uid}">
+                        <a th:if="${uid} eq ${vo.writer}"
+                        th:href = "@{modify(page=${pagevo.page},
+                        			size=${pagevo.size},
+                        			type=${pagevo.type},
+                        			keyword=${pagevo.keyword},
+                        			bno=${vo.bno}
+                        			)}" 
+                        			class="btn btn-primary" id="goModBtn" >Modify/Delete</a>
+                        <a th:href = "@{home(page=${pagevo.page},size=${pagevo.size},type=${pagevo.type},keyword=${pagevo.keyword}, bno=${vo.bno})}" class="btn btn-primary">List</a>
+                        </div>
+                    </article>
+                    
+                    <!-- Comments section-->
+                    <section class="mb-5">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <!-- Comment form-->
+                                <div class="row">
+                                <div class="col-sm-10"><form action="post"><textarea class="form-control" id="reply_text" name="replyText" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form></div>
+                                <div class="col-sm-2">
+                                <input class="form-control" name="replyer" style="margin-bottom:2px; min-height:25px;" readonly="readonly" />
+                                </div>
+                                <div class="col-sm-2">
+									<button type="button" class="btn btn-sm btn-primary" id="modalBtn" style="width: 100%; margin-top: 5px; min-height:25px;"> 저 장 </button>
+										</div>
+										</div>
+
+                                <!-- Comment with nested comments-->
+                               
+                                <div  id="replylist">
+
+                                </div>
+                            
+                                <!-- Single comment-->
+                               
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Search widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Search</div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Side Widget</div>
+                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                    </div>
+                </div>
+
+            </div>
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+	
+	<!-- modal content -->
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close"  data-dismiss="modal">&times;</button>
+			
+			<h4 class="modal-title"></h4>
+		</div>
+		<div class="modal-body">
+			<label>Reply Text</label>
+			<textarea class="form-control"  name='replyModText'></textarea>
+		</div>
+		<div class="modal-footer">
+			<button id='saveBtn' class="btn btn-primary">저장</button>
+		</div>
+	</div>
+	</div>
+</div>
+            
+            
+        </div>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <th:block layout:fragment="script">
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>        
+         <script th:inline ="javascript" th:src="@{'/view/viewjs/reply.js'}"></script>
+         
+         <script th:inline = "javascript">
+         
+         $(document).ready(function (e){
+        	 
+        	 (function(){
+        		 replyManager.getAll([[${vo.bno}]],replylist);
+        	 })();
+        	 
+        	 function replylist(list){
+        		 
+        		 var htmls = "";
+        		 var replyObj;
+     			var replyTextObj = $("textarea[name='replyText']");
+    			var replyerObj = $("input[name='replyer']");
+    			var rno;
+    			var bno = [[${vo.bno}]];
+    			var csrf = JSON.parse('[[${_csrf}]]');
+    			
+				
+    			
+        		 for(var i=0; i<list.length;i++) {
+        			 
+        			 replyObj=list[i];
+        			 
+        			 this.rno = rno;
+        			 rno = replyObj.rno;
+        			 
+        			 htmls+='<div class="d-flex" id="rid' + replyObj.rno + '">'
+        			 +'<div class="flex-shrink-0">'+'<img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />'+'</div>'
+        			 +"<div class='ms-3'>"
+        			 +'<div>'
+        			 +"<div class='a' style='display:none'>"+replyObj.rno+ '</div>'
+        			 +"<div class='fw-bold' id='replyuser' >"+replyObj.replyer+"</div>"
+        			 +'<a href="javascript:void(0)" class="modbtn" style="margin-right:5px">수정</a>'
+        			 +'<a href="javascript:void(0)" class="delbtn" style="margin-right:5px">삭제</a>'
+        			 +'</div>'
+        			 +"<div>"+replyObj.replyText+"</div>"
+        			 +"</div>"
+        			 +'</div>'
+
+        		 }	//each end
+        			$("#replylist").html(htmls);
+        		 
+        		 var tds = $("#replyuser")
+        		 
+        		 replyerObj.val(tds.innerHTML);
+        		 $(".delbtn").show();
+        		 $(".modbtn").show();
+        		 	if(uid != $.trim(tds.innerHTML)) {
+        		 		$(".delbtn").hide();
+        		 		$(".modbtn").hide();
+        		 	}
+        		 
+        			$(".delbtn").click(function() {
+               		 console.log("remove ....");
+               		 var obj = {bno:bno, rno:rno};
+               		 
+               		 replyManager.remove(obj, function(list){
+               			replylist(list);
+               			alert("댓글이 삭제됨");
+               			replyTextObj.val("");
+               			replyerObj.val("");
+               		 });
+	
+        			});
+
+        			var replyModObj = $("textarea[name='replyModText']");
+        			
+        			$(".modbtn").click(function() {
+                  		 console.log("modify ....");
+                  		 $("#myModal").modal("show");
+                  		
+                  		 
+						$("#saveBtn").click(function(){
+							replyTextObj = replyModObj;
+						var replyText = replyTextObj.val();
+	                  	var replyer = replyerObj.val();
+                  		 var obj = {replyText:replyText, bno:bno, rno:rno, csrf:csrf};
+              
+                  		 replyManager.update(obj, function(list){
+                  			alert("댓글 수정");
+                  			replylist(list);
+        					replyModObj.val("");
+        					replyerObj.val("");
+                  		 });
+                  		 
+                  		$("#myModal").modal("hide");
+                 
+						});
+                  		
+           			});
+        			
+
+        		
+
+		} 
+        	 
+        	 
+			var bno = [[${vo.bno}]];
+			
+			var replyTextObj = $("textarea[name='replyText']");
+			var replyerObj = $("input[name='replyer']");
+			
+			var uid = [[${#authentication.principal} eq 'anonymousUser'? null :${#authentication.principal.member.uid}]] ;
+		
+
+			
+			$("#modalBtn").click(function() {
+				var csrf = JSON.parse('[[${_csrf}]]');
+				
+				if(uid == null) {
+					if(confirm("로그인할까요?")){
+						self.location = [[@{/login}]]+"?dest" + encodeURIComponent(self.location);
+					}
+					return;
+				}
+				replyerObj.val(uid);
+				
+				var replyText = replyTextObj.val();
+				var replyer = replyerObj.val();
+				
+				var obj = {replyText:replyText, replyer:replyer, bno:bno, csrf:csrf};
+				
+				replyManager.add(obj, function(list){
+					alert("새로운 댓글이 달렸다");
+					replylist(list);
+					replyTextObj.val("");
+					replyerObj.val("");
+				});
+				
+				
+			});
+			
+			function adjustHeight() {
+				  var textEle = $('textarea');
+				  textEle[0].style.height = 'auto';
+				  var textEleHeight = textEle.prop('scrollHeight');
+				  textEle.css('height', textEleHeight);
+				};
+
+				adjustHeight();
+			 
+         });
+       
+        
+
+        
+        </script>
+        </th:block>
+    </body>
+</html>

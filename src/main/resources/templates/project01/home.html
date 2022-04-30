@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.net.nz/thymeleaf/layout">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Blog Home - 홍성주의 Blog</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../css/styles.css" rel="stylesheet" />
+        
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="../project01/home" style="text-decoration-line:none;">홍성주의 Blog</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="../project01/home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="javascript:void(0);" id="loginBtn">Login</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+        <!-- Page header with logo and tagline-->
+        <header class="py-5 bg-light border-bottom mb-4">
+            <div class="container">
+                <div class="text-center my-5">
+                    <h1 class="fw-bolder">Welcome to My Blog!</h1>
+                    <p class="lead mb-0">안녕하세요 '쟤보단 코딩 잘해'에서 '쟤'를 맡고 있습니다.</p>
+                </div>
+            </div>
+        </header>
+        <!-- Page content-->
+        <div class="container">
+            <div class="row">
+                <!-- Blog entries-->
+                <div class="col-lg-8" >
+                    <!-- Featured blog post-->
+
+                    <!-- Nested row for non-featured blog posts-->
+                    <div class="row">
+                    <div class="pull-right" style="text-align:right;" >
+					<a class="btn btn-primary" th:href="@{register}">register</a>
+					</div>
+                        <div  class="col-lg-10" th:with = "result=${result.result}">
+                            <!-- Blog post-->
+                            <div class="col-lg-10" th:inline="text" th:each ="arr : ${result.content}" >
+                            	
+                                
+                                <div class="row" id="tb1">
+                                <div ><a th:href = '${arr[0]}' ></a>
+                                   <p class="small text-muted"><a th:href = '${arr[0]}' class='boardLink' >[[${arr[1]}]]</a></p>
+                                   <h4 class="card-title h5"><a th:href = '${arr[0]}' class='boardLink'>[[${arr[2]}]]</a></h4>
+                                   <p class="card-text"><a th:href = '${arr[0]}' class='boardLink' style="text-decoration-line: none;">[[${arr[3]}]]</a></p>
+                                    <hr class="my-0" />
+                                   </div>
+                                    </div>
+
+                                
+                            </div>
+                            <!-- Blog post-->
+
+                        </div>
+
+                    </div>
+                    <!-- Pagination-->
+                    <nav aria-label="Pagination">
+                        <hr class="my-0" />
+                        <ul class="pagination justify-content-center my-4">
+                            <li class="page-item" th:if="${result.prev}"><a class="page-link" th:href="${result.prev.pageNumber}+1" tabindex="-1" aria-disabled="true">Newer[[${result.prev.pageNumber}+1]]</a></li>
+                            <li class="page-item" th:classappend="${p.pageNumber == result.currentPageNum-1}?'active': '' " th:each="p:${result.pageList}"><a class="page-link" th:href="${p.pageNumber}+1">[[${p.pageNumber}+1]]</a></li>
+                            <li class="page-item" th:if="${result.next}"><a class="page-link" th:href="${result.next.pageNumber}+1">Older[[${result.next.pageNumber}+1]]</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Search widget-->
+                    <div class="card mb-4" th:with = "result=${result.result}">
+                        <div class="card-header">Search</div>
+                        <div class="card-body">
+                            <div class="input-group"><select id='searchType'>
+                            	<option value = 't' th:selected="${vo.type}=='t' ">Title</option>
+                            	<option value = 'c' th:selected="${vo.type}=='c' ">Content</option>
+                            </select>
+                                <input class="form-control" type="text" id='searchKeyword' placeholder="Search what you want..." aria-label="Enter search term..." aria-describedby="button-search"
+                                 th:value="${vo.keyword}" >
+                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Categories</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6" >
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">Web Design</a></li>
+                                        <li><a href="#!">HTML</a></li>
+                                        <li><a href="#!">Freebies</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!">JavaScript</a></li>
+                                        <li><a href="#!">CSS</a></li>
+                                        <li><a href="#!">Tutorials</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Side Widget</div>
+                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                    </div>
+                </div>
+                                        <form id='f1' th:action="@{home}" method="get" >
+        	<input type='hidden' name='page' th:value="${result.currentPageNum}">
+        	<input type='hidden' name='size' th:value="${result.currentpage.pageSize}">
+        	<input type='hidden' name='type' th:value="${vo.type}">
+        	<input type='hidden' name='keyword' th:value="${vo.keyword}">
+        	
+        </form>
+            </div>
+                    
+        </div>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+        </footer>
+        
+
+        
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="../js/scripts.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+        
+        <th:block layout:fragment="script">
+        <script th:inline="javascript">
+        $(document).ready(function() {
+        	
+        	var formObj = $("#f1");
+        	
+        	$(".pagination a").click(function(e) {
+        		e.preventDefault();
+        		
+        		formObj.find('[name="page"]').val($(this).attr('href'));
+        		
+        		formObj.submit();
+        	});
+        	$("#button-search").click(function(e){
+        		
+        		var typeStr = $("#searchType").find(":selected").val();
+        		var keywordStr = $("#searchKeyword").val();
+        		console.log(typeStr, "", keywordStr);
+        		
+        		formObj.find("[name='type']").val(typeStr);
+        		formObj.find("[name='keyword']").val(keywordStr);
+        		formObj.find("[name='page']").val("1");
+        		formObj.submit();
+        	});
+        	$(".boardLink").click(function(e){
+        		e.preventDefault();
+        		var blogNo = $(this).attr("href");
+        		
+        		formObj.attr("action",[[@{'/project01/view'}]]);
+        		formObj.append("<input type='hidden' name='bno' value='" + blogNo+"'>");
+        		
+        		formObj.submit();
+        		
+        });
+        	var uid = [[${#authentication.principal} eq 'anonymousUser' ? null :${#authentication.principal.member.uid}]] ;
+        	$("#loginBtn").click(function(e) {
+        		if(uid == null) {
+        			self.location = [[@{/login}]]+"?dest=" + encodeURIComponent(self.location);
+        		}
+        		return false;
+        	});
+        	
+        	window.onpageshow = function (event){
+        		if(event.persisted || (window.performance && window.performance.navigation.type == 2)){
+        			$("#keyword").val("");}
+
+        	}
+
+        });
+        
+
+       
+        
+        	
+        </script>
+        </th:block>
+    </body>
+</html>

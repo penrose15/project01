@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.net.nz/thymeleaf/layout">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Signin Template · Bootstrap v5.0</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+
+</head>
+<body>
+
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>
+                <label>UID</label>
+                <input type="text" name="uid"	th:value="${member.uid}" readonly />
+            </p>
+            <p>
+                <label>UPW</label>
+                <input type="text" name="upw" th:value="${member.upw}" readonly />
+            </p>
+            <p>
+                <label>UNAME</label>
+                <input type="text" name="uname" th:value="${member.uname}" readonly />
+            </p>
+
+            <p>[[${member.roles}]]</p>
+
+        </div>
+    </div>
+</body>
+</html>

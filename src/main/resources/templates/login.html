@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.net.nz/thymeleaf/layout">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Signin Template · Bootstrap v5.0</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="../css/signin.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+<main class="form-signin">
+  
+  
+  <div th:if="${param.error != null}">
+  <h1 class="mb-3 fw-normal">Invalid Id or Password</h1>
+  <h2 th:value = "${param.error}"></h2>
+  </div>
+  
+  <div th:if="${param.logout != null}">
+  	<h2>You have been Logged out.</h2>
+  </div>
+    
+	<form action="/dologin" method="post">
+
+    <h2 class="mb-3 fw-normal">Please sign in</h2>
+
+    <div class="form-floating">
+      <input type="text" class="form-control" id="username" name="username" placeholder="Id">
+      <label for="floatingInput">ID</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="password" name="password"  placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me" id="remember-me" name="remember-me"> Remember me
+      </label>
+    </div>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <button class="w-100 btn btn-lg btn-primary" id="loginBtn" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted"></p>
+  </form>
+</main>
+
+ <th:block layout:fragment="script">
+  	<script th:inline="javascript">
+  	
+  	
+  	</script>
+  </th:block>
+    
+    
+    
+  </body>
+  
+
+ 
+  
+  
+</html>
