@@ -1,16 +1,10 @@
 package com.example.security;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.security.core.Authentication;
+import lombok.extern.java.Log;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
-import lombok.extern.java.Log;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Log
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{

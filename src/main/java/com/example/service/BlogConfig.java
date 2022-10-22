@@ -3,9 +3,9 @@ package com.example.service;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 import com.example.persistence.BlogReplyRepository;
 import com.example.persistence.BlogRepository;
-import com.example.persistence.BlogRepositoryImpl;
 
 @Configuration
 public class BlogConfig {

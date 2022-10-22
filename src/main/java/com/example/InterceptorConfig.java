@@ -1,12 +1,13 @@
-package com.example;
+package java.com.example;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.example.interceptor.LoginCheckInterceptor;
 
 import lombok.extern.java.Log;
+
+import com.example.interceptor.LoginCheckInterceptor;
 
 @Configuration
 @Log

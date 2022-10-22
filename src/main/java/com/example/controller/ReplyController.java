@@ -1,5 +1,8 @@
 package com.example.controller;
 
+import com.example.domain.Blog;
+import com.example.domain.BlogReply;
+import com.example.persistence.BlogReplyRepository;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -17,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.domain.Blog;
-import com.example.domain.BlogReply;
-import com.example.persistence.BlogReplyRepository;
+
 
 import lombok.extern.java.Log;
 

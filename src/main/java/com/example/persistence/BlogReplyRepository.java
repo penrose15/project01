@@ -1,12 +1,12 @@
 package com.example.persistence;
 
+import com.example.domain.Blog;
+import com.example.domain.BlogReply;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.example.domain.Blog;
-import com.example.domain.BlogReply;
 
 public interface BlogReplyRepository extends CrudRepository<BlogReply, Long>{
 	

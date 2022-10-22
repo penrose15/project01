@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.persistence.MemberRepository;
-
 import lombok.extern.java.Log;
+
+import com.example.persistence.MemberRepository;
 
 @Service
 @Log

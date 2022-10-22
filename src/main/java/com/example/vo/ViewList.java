@@ -12,7 +12,7 @@ import lombok.ToString;
 import lombok.extern.java.Log;
 
 @Getter
-@ToString(exclude="pageList")
+@ToString
 @Log
 
 public class ViewList<T> {

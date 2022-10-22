@@ -1,9 +1,6 @@
 package com.example;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.assertj.core.util.Arrays;
+import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +12,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.example.domain.Member;
 import com.example.domain.MemberRole;
 import com.example.persistence.MemberRepository;
-
-import lombok.extern.java.Log;
+import java.util.ArrayList;
+import java.util.List;
 
 @Log
 @Commit

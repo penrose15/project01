@@ -2,6 +2,7 @@ package com.example.security;
 
 import javax.sql.DataSource;
 
+import com.example.security.CustomLoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

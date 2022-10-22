@@ -1,5 +1,8 @@
 package com.example;
 
+import com.example.domain.Blog;
+import com.example.domain.BlogReply;
+import com.example.persistence.BlogReplyRepository;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,13 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import com.example.domain.Blog;
-import com.example.domain.BlogReply;
-import com.example.persistence.BlogReplyRepository;
-//import com.example.persistence.BlogRepository;
-
-//import groovyjarjarantlr4.runtime.IntStream;
 
 @SpringBootTest
 @Commit

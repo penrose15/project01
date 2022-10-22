@@ -1,20 +1,11 @@
 package com.example.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import com.example.domain.Blog;
-import com.example.domain.BlogReply;
 import com.example.persistence.BlogReplyRepository;
 import com.example.persistence.BlogRepository;
-import com.example.persistence.BlogRepositoryCustom;
-import com.example.vo.VO;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 public class BlogServiceImpl {
 	
