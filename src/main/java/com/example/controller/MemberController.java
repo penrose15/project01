@@ -44,7 +44,7 @@ public class MemberController {
 		
 		repo.save(member);
 		
-		return "/member/joinResult";
+		return "redirect:/login";
 	}
 	
 
